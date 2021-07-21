@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+before_install: -docker build -t dponnada/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run dponnada/react-test npm test -- --coverage
+
+after_sucess:
+  - docker build -t dponnada/multi-client ./client
+  - docker build -t dponnada/multi-nginx ./nignx
+  - docker build -t dponnada/multi-server ./server
+  - docker build -t dponnada/multi-worker ./worker
+  # login to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images push then in docker cli
+  - docker push dponnada/multi-client
+  - docker push dponnada/multi-nginx
+  - docker push dponnada/multi-server
+  - docker push dponnada/multi-worker
