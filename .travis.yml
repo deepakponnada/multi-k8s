@@ -4,7 +4,7 @@ services:
 before_install: -docker build -t dponnada/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run dponnada/react-test npm test -- --coverage
+  - docker run -e CI=true dponnada/react-test npm test
 
 after_sucess:
   - docker build -t dponnada/multi-client ./client
