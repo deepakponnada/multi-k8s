@@ -1,7 +1,8 @@
 sudo: required
 services:
   - docker
-before_install: -docker build -t dponnada/react-test -f ./client/Dockerfile.dev ./client
+before_install:
+  - docker build -t dponnada/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true dponnada/react-test npm test
