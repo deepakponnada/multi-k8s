@@ -9,7 +9,7 @@ script:
 
 after_sucess:
   - docker build -t dponnada/multi-client ./client
-  - docker build -t dponnada/multi-nginx ./nignx
+  - docker build -t dponnada/multi-nginx ./nginx
   - docker build -t dponnada/multi-server ./server
   - docker build -t dponnada/multi-worker ./worker
   # login to docker CLI
